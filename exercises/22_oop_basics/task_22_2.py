@@ -47,6 +47,7 @@ self._write_line(line)
 
 Он не должен делать ничего другого.
 """
+
 class CiscoTelnet:
     def __init__(self, ip, username, password, secret):
         self.ip = ip
@@ -54,7 +55,7 @@ class CiscoTelnet:
         self.password = password
         self.secret = secret
 
-
+   
     def _write_line(self, cmd_str):
         telnetlib.Telnet(self.ip)
         telnetlib.read_intil(b'Username')
@@ -67,4 +68,5 @@ class CiscoTelnet:
         telnetlib.write(self.secret.encode()+b'\n')
         telnetlib.read_until(b'#')
         telnetlib.write(smd_str.encode()+b'\n')
+
 

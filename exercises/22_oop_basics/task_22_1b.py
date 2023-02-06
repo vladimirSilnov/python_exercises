@@ -63,3 +63,25 @@ topology_example = {
     ("SW1", "Eth0/2"): ("R2", "Eth0/0"),
     ("SW1", "Eth0/3"): ("R3", "Eth0/0"),
 }
+
+
+class Topology:
+    def __init__(self, topology_dict):
+        self.topology = self._normalize(topology_dict)
+        self.topology_dict = topology_dict
+
+    def _normalize(self, topology_dict):
+        return {
+            min(local, remote): max(local, remote)
+            for local, remote in topology_dict.items()
+        }
+
+    def delete_link(self, l_node, r_node):
+        if self.topology_dict.get(l_node):
+            del self.topology_dict[l_node]
+
+        if self.topology_dict.get(r_node):
+            del self.topology_dict[r_node]
+
+
+
